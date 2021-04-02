@@ -75,19 +75,19 @@ export const state = ()=>({
       title: "Done",
       subCards: [
         {
-          id: 140,
+          id: 14,
           title: "Add discount code to checkout page",
           date: "Sep 14",
           type: "Feature Request"
         },
         {
-          id: 150,
+          id: 15,
           title: "Design shopping cart dropdown",
           date: "Sep 9",
           type: "Design"
         },
         {
-          id: 160,
+          id: 16,
           title: "Add discount code to checkout page",
           date: "Sep 14",
           type: "Feature Request"

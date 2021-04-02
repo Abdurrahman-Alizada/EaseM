@@ -1,10 +1,10 @@
 <template>
 <section >
     <Draggable :list="subCards" :animation="200" ghost-class="ghost-card" group="subCards">
-  <div @click="showModal = true" v-for="subCard in subCards" :key="subCard.id" class="bg-white shadow rounded px-3 pt-3 pb-5 border border-white">
+  <div  v-for="subCard in subCards" :key="subCard.id" class="bg-white mt-3 shadow rounded px-3 pt-3 pb-5 border border-white">
+  <span @click="showModal = true">
     <div  class="flex justify-between">
       <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm">{{subCard.title}}</p>
-
       <img
         class="w-6 h-6 rounded-full ml-3"
         src="https://pickaface.net/gallery/avatar/unr_sample_161118_2054_ynlrg.png"
@@ -15,47 +15,38 @@
       <span class="text-sm text-gray-600">{{subCard.date}}</span>
       <badge v-if="subCard.type" :color="badgeColor">{{subCard.type}}</badge>
     </div>
-  </div>
+</span>
+  <h4> {{subCard.id}}</h4>
    <!-- modal -->
-    <div>
-     <div v-if="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
-      <div class="relative w-auto my-6 mx-auto max-w-3xl">
-        <!--content-->
-        <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-          <!--header-->
-          <div class="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t">
-            <h3 class="text-3xl font-semibold">
-              Modal Title
-            </h3>
-            <button 
-            class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" 
-              @click="showModal = false">
-              <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                ×
-              </span>
-            </button>
-          </div>
-          <!--body-->
-          <div class="p-6 container">
-          <ModalBody />
-          </div>
-          <!--footer-->
-          <div class="flex items-center justify-end p-6 border-t border-solid border-gray-300 rounded-b">
-            <button 
-            class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease"
-              @click="showModal = false">
-              Close
-            </button>
-            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" v-on:click="toggleModal()">
-              Save Changes
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-if="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+  <transition name="fade">
 
+ <div v-if="showModal" class="inset-8 md:max-w-3xl w-auto fixed mx-auto md:rounded bg-gray-200 shadow-xl">
+   <div class="mx-auto max-w-3xl">
+    <h2 class="font-semibold rounded rounded-b-none bg-white text-2xl flex items-center p-3">
+     {{subCard.type}}
+      <button @click="showModal = !showModal"  class="block ml-auto flex items-center bg-red-700 hover:bg-red-600 text-white font-semibold p-1 rounded text-red-300 hover:text-white">
+<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="currentcolor">
+  <path d="M4 8 L8 4 L16 12 L24 4 L28 8 L20 16 L28 24 L24 28 L16 20 L8 28 L4 24 L12 16 z"></path>
+</svg>
+      </button>
+    </h2>
+    <div class="p-5">
+
+    <ModalBody :title='subCard.title'/>
     </div>
+
+    <footer class="p-3 rounded rounded-t-none flex">
+      <div class="flex items-center ml-auto">
+      <a href="#" class="px-3 py-1 text-gray-600 hover:text-gray-800 hover:bg-gray-300 rounded mr-2">Run for the hills</a>
+      <button class="px-5 py-1 flex items-center bg-green-700 hover:bg-green-600 text-white font-semibold p-1 rounded">Save</button>
+       </div>
+    </footer>
+    
+    <code></code>
+   </div>
+  </div>
+   </transition>
+</div>
       <!-- end modal -->   
     </Draggable>
      <a @click="addCard" v-if="!addAnotherCard" class="flex py-2 mt-2 cursor-pointer hover:bg-gray-400 text-grey-dark">
@@ -134,3 +125,16 @@ props: {
   }
 };
 </script>
+</script>
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.bgBlur {
+  background-color: rgba(0,0,33,0.5);
+}
+</style>
